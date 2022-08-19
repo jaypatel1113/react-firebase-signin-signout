@@ -1,0 +1,168 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;400;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+    background: #000;
+    color: #ddd;
+}
+
+html {
+    font-size: 62.5%;
+}
+
+.main {
+    z-index: 1000000;
+}
+
+input {
+    background: transparent;
+    color: #ddd;
+}
+
+input[type="file"] {
+    cursor: pointer;
+}
+
+ul {
+    background: rgba(34, 34, 34, 1);
+    color: rgb(255, 255, 255, 0.9);
+}
+
+ul li {
+    font-size: 14px !important;
+}
+
+.btn, .pbtn {
+    background: rgba(255, 255, 255, 0.2) !important;
+    padding: 1rem !important;
+    margin: 1.4rem 0 !important;
+}
+.pbtn {
+    margin-left: 2rem !important;
+    padding: 1rem 1.5rem !important;
+}
+
+.btn:hover, .pbtn:hover {
+    background: var(--i) !important;
+    box-shadow: 0 0 5px var(--i),
+        0 0 10px var(--i),
+        0 0 20px var(--i),
+        0 0 40px var(--i);
+    transform: scale(0.9);
+    color: #000 !important;
+    font-weight: bolder;
+}
+
+.btn:disabled {
+    cursor: not-allowed;
+    pointer-events: all !important;
+}
+
+.btn + p {
+    margin-top: 4rem !important;
+}
+
+::-ms-browse {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 3rem;
+    color: #fff;
+    padding: 0.5rem 1.3rem;
+    border: none;
+    outline: none;
+}
+
+::-webkit-file-upload-button {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 3rem;
+    color: #fff;
+    padding: 0.5rem 1.3rem;
+    border: none;
+    outline: none;
+}
+
+@media screen and (max-width: 998px) {
+    html {
+        font-size: 60%;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    html {
+        font-size: 55%;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    html {
+        font-size: 48%;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    html {
+        font-size: 45%;
+    }
+
+    .form_data form {
+        padding: 10px 3rem !important;
+    }
+
+    .form_data p {
+        font-size: 1.2rem;
+    }
+
+    .form_heading {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .form_data h1,
+    header nav h1 {
+        font-size: 3rem !important;
+    }
+    
+    .form_input .showpass {
+        top: 0px !important;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    html {
+        font-size: 40%;
+    }
+
+    .form_data form .form_input input,
+    .form_data form .form_input label {
+        font-size: 1.8rem !important;
+    }
+
+    form .btn {
+        font-size: 2rem !important;
+    }   
+    .form_input .showpass {
+        top: 2px !important;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    html {
+        font-size: 35%;
+    }
+
+    .form_data form .form_input input,
+    .form_data form .form_input label {
+        font-size: 1.8rem !important;
+    }
+
+    form .btn {
+        font-size: 2rem !important;
+    }
+}
