@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { NavLink, useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { toast } from "react-toastify";
 
@@ -13,12 +13,13 @@ const ResetPass = ({location}) => {
 
     const [password, setPassword] = useState("");
     const [passShow, setPassShow] = useState(false);
+    const [passsubmit, setPass] = useState(0);
     const [oobCode, setOobCode] = useState("");
     const [searchParams, setSearchParams] = useSearchParams();
-
+    
     const history = useNavigate();
 
-    const loginuser = async (e) => {
+    const updpass = async (e) => {
         e.preventDefault();
 
         if (password === "") {
@@ -31,11 +32,12 @@ const ResetPass = ({location}) => {
             try {
                 // update pass 
                 setOobCode(searchParams.get("oobCode"));
-                // console.log(searchParams.get("oobCode"));
-                // console.log(password);
+                console.log(searchParams.get("oobCode"));
+                console.log(password);
 
+                setPass(1);
                 const passUpdate = await confirmPasswordReset(auth, oobCode, password);
-                console.log("here");
+                console.log(passUpdate);
                 setSubmitDisable(false);
                 history("/dash");
                 toast.success("Password Updated Successfull 😉");
@@ -50,8 +52,12 @@ const ResetPass = ({location}) => {
                         toast.warn("Link is Expire!");
                     else if(errorCode === "auth/user-not-found")
                         toast.warn("user not found");
-                    else if(errorCode === "auth/invalid-action-code")
-                        toast.warn("Link is already used! (generate new)");
+                    else if(errorCode === "auth/invalid-action-code"){
+                        if(passsubmit === 1)
+                            toast.warn("Link is already used! (generate new)");
+                        else
+                            toast.warn("click update pass again (confirmation)");
+                    }
                     else
                         toast.error("Something went wrong!");
             }
@@ -91,7 +97,7 @@ const ResetPass = ({location}) => {
                             </div>
                         </div>
                         
-                        <button disabled={submitDisable} className="btn" onClick={loginuser} style={{"--i": "#20c997"}}>
+                        <button disabled={submitDisable} className="btn" onClick={updpass} style={{"--i": "#20c997"}}>
                             Update Password
                         </button>
                     </form>

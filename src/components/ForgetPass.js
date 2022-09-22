@@ -19,7 +19,7 @@ const ForgetPass = () => {
 
     
 
-    const loginuser = async (e) => {
+    const sendemail = async (e) => {
         e.preventDefault();
 
         if (email === "") {
@@ -71,7 +71,7 @@ const ForgetPass = () => {
                             />
                         </div>
                         
-                        <button disabled={submitDisable} className="btn" onClick={loginuser} style={{"--i": "#20c997"}}>
+                        <button disabled={submitDisable} className="btn" onClick={sendemail} style={{"--i": "#20c997"}}>
                             Send Email
                         </button>
                     </form>
