@@ -131,15 +131,31 @@ form.log .disbtn:disabled {
     margin-top: 25px;
 }
 
-.form_data form a {
+.form_data form .zeromar {
+    margin-bottom: -1.8rem;
+}
+
+.form_data form a,
+.form_data form button {
     text-decoration: none;
     color: #ddd;
+    border: none;
     /* border-bottom: 2px solid #4082de; */
     margin-left: 1.5rem;
     background-color: rgba(255, 255, 255, 0.13);
     padding: 1rem 1.5rem;
     border-radius: 10px;
     transition: all 0.3s;
+}
+
+.sicons {
+    border-radius: 50% !important;
+    padding: 2rem;
+    height: 5rem;
+}
+
+.sicons svg {
+    font-size: 2rem;
 }
 
 .form_data form a:hover {

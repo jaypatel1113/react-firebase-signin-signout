@@ -50,7 +50,11 @@ const Header = () => {
             auth.onAuthStateChanged((user) => {
                 if (user) {
                     // toast.success("Logged in Successful 😃");
-                    setData({ name: user.displayName, email: user.email, imgsrc: user.photoURL });
+                    setData({
+                        name: user.displayName,
+                        email: user.email,
+                        imgsrc: user.photoURL,
+                    });
                 } else {
                     setData("");
                 }
@@ -90,6 +94,7 @@ const Header = () => {
                                 onClick={handleClick}
                             >
                                 {/* {currentUser.displayName[0].toUpperCase()} */}
+
                                 <img
                                     src={data.imgsrc}
                                     alt="errror"

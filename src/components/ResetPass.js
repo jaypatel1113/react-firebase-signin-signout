@@ -1,14 +1,13 @@
-import React, { useEffect, useState } from "react";
-import { NavLink, useNavigate, useParams, useSearchParams } from "react-router-dom";
+import React, { useState } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { toast } from "react-toastify";
+import { confirmPasswordReset } from "firebase/auth";
 
 import "./mix.css";
 
 import { auth } from "../firebase";
-import { confirmPasswordReset } from "firebase/auth";
-import { Password } from "@mui/icons-material";
 
-const ResetPass = ({location}) => {
+const ResetPass = () => {
     const [submitDisable, setSubmitDisable] = useState(false);
 
     const [password, setPassword] = useState("");
@@ -16,7 +15,7 @@ const ResetPass = ({location}) => {
     const [passsubmit, setPass] = useState(0);
     const [oobCode, setOobCode] = useState("");
     const [searchParams, setSearchParams] = useSearchParams();
-    
+
     const history = useNavigate();
 
     const updpass = async (e) => {
@@ -30,13 +29,17 @@ const ResetPass = ({location}) => {
             setSubmitDisable(true);
 
             try {
-                // update pass 
+                // update pass
                 setOobCode(searchParams.get("oobCode"));
                 console.log(searchParams.get("oobCode"));
                 console.log(password);
 
                 setPass(1);
-                const passUpdate = await confirmPasswordReset(auth, oobCode, password);
+                const passUpdate = await confirmPasswordReset(
+                    auth,
+                    oobCode,
+                    password
+                );
                 console.log(passUpdate);
                 setSubmitDisable(false);
                 history("/dash");
@@ -44,22 +47,19 @@ const ResetPass = ({location}) => {
             } catch (error) {
                 // console.log(error);
                 setSubmitDisable(false);
-                    console.log(error);
-                    const errorCode = error.code;
-                    const errorMessage = error.message;
-                    // console.log(errorCode + "  " + errorMessage);
-                    if(errorCode === "auth/expired-action-code")
-                        toast.warn("Link is Expire!");
-                    else if(errorCode === "auth/user-not-found")
-                        toast.warn("user not found");
-                    else if(errorCode === "auth/invalid-action-code"){
-                        if(passsubmit === 1)
-                            toast.warn("Link is already used! (generate new)");
-                        else
-                            toast.warn("click update pass again (confirmation)");
-                    }
-                    else
-                        toast.error("Something went wrong!");
+                console.log(error);
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                // console.log(errorCode + "  " + errorMessage);
+                if (errorCode === "auth/expired-action-code")
+                    toast.warn("Link is Expire!");
+                else if (errorCode === "auth/user-not-found")
+                    toast.warn("user not found");
+                else if (errorCode === "auth/invalid-action-code") {
+                    if (passsubmit === 1)
+                        toast.warn("Link is already used! (generate new)");
+                    else toast.warn("click update pass again (confirmation)");
+                } else toast.error("Something went wrong!");
             }
         }
     };
@@ -78,12 +78,14 @@ const ResetPass = ({location}) => {
                             <div className="two">
                                 <input
                                     type={!passShow ? "password" : "text"}
-                                    onChange={(e) => setPassword(e.target.value)}
+                                    onChange={(e) =>
+                                        setPassword(e.target.value)
+                                    }
                                     value={password}
                                     name="password"
                                     id="password"
                                     placeholder="Enter Your new password"
-                                    />
+                                />
                                 <div
                                     className="showpass"
                                     onClick={() => setPassShow(!passShow)}
@@ -91,13 +93,18 @@ const ResetPass = ({location}) => {
                                         background: "transparent",
                                         color: "#fff",
                                     }}
-                                    >
+                                >
                                     {!passShow ? "Show" : "Hide"}
                                 </div>
                             </div>
                         </div>
-                        
-                        <button disabled={submitDisable} className="btn" onClick={updpass} style={{"--i": "#20c997"}}>
+
+                        <button
+                            disabled={submitDisable}
+                            className="btn"
+                            onClick={updpass}
+                            style={{ "--i": "#20c997" }}
+                        >
                             Update Password
                         </button>
                     </form>

@@ -1,23 +1,18 @@
 import React, { useState } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { sendPasswordResetEmail, signInWithEmailAndPassword } from "firebase/auth";
-import { useContext } from "react";
+import { sendPasswordResetEmail } from "firebase/auth";
 
 import "./mix.css";
 
 import { auth } from "../firebase";
-import { AuthContext } from "./ContextProvider/AuthContext";
 
 const ForgetPass = () => {
     const [submitDisable, setSubmitDisable] = useState(false);
-    const { dispatch } = useContext(AuthContext);
 
     const [email, setEmail] = useState("");
 
     const history = useNavigate();
-
-    
 
     const sendemail = async (e) => {
         e.preventDefault();
@@ -38,14 +33,13 @@ const ForgetPass = () => {
             } catch (error) {
                 // console.log(error);
                 setSubmitDisable(false);
-                    // console.log(error);
-                    const errorCode = error.code;
-                    const errorMessage = error.message;
-                    // console.log(errorCode + "  " + errorMessage);
-                    if(errorCode === "auth/user-not-found")
-                        toast.warn("Email is not Register!");
-                    else
-                        toast.error("Something went wrong!");
+                // console.log(error);
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                // console.log(errorCode + "  " + errorMessage);
+                if (errorCode === "auth/user-not-found")
+                    toast.warn("Email is not Register!");
+                else toast.error("Something went wrong!");
             }
         }
     };
@@ -64,14 +58,19 @@ const ForgetPass = () => {
                             <input
                                 type="email"
                                 value={email}
-                                onChange={(e)=> setEmail(e.target.value)}
+                                onChange={(e) => setEmail(e.target.value)}
                                 name="email"
                                 id="email"
                                 placeholder="Enter Your Email Address"
                             />
                         </div>
-                        
-                        <button disabled={submitDisable} className="btn" onClick={sendemail} style={{"--i": "#20c997"}}>
+
+                        <button
+                            disabled={submitDisable}
+                            className="btn"
+                            onClick={sendemail}
+                            style={{ "--i": "#20c997" }}
+                        >
                             Send Email
                         </button>
                     </form>

@@ -51,7 +51,7 @@ const Dashboard = () => {
                             borderRadius: "50%",
                             zIndex: 1000,
                         }}
-                        alt="deleted from server 😂"
+                        alt="access denial 😂"
                     />
                     <h3 style={{ zIndex: 1000, fontSize: "3rem" }}>
                         Name : {data.name}

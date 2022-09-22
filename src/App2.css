@@ -97,10 +97,36 @@ form .specbtn:hover,
     background: rgba(255, 255, 255, 0.3);
     background: var(--i) !important;
     box-shadow: 0 0 5px var(--i),
-                0 0 10px var(--i),
-                0 0 20px var(--i),
-                0 0 40px var(--i);
+        0 0 10px var(--i),
+        0 0 20px var(--i),
+        0 0 40px var(--i);
     transform: scale(0.9);
-    color: #000 !important;
     font-weight: 700;
+}
+
+.optopt {
+    margin: 3.5rem 0 0 0 !important;
+    position: relative;
+}
+
+.optopt::before {
+    content: "";
+    position: absolute;
+    height: 2px;
+    width: 10rem;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    background-color: #fff;
+}
+
+.optopt::after {
+    content: "";
+    position: absolute;
+    height: 2px;
+    width: 10rem;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    background-color: #fff;
 }

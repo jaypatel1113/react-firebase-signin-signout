@@ -127,9 +127,9 @@ input[type=number].todo::-webkit-outer-spin-button {
 .btn:hover {
     background: var(--i) !important;
     box-shadow: 0 0 5px var(--i),
-                0 0 10px var(--i),
-                0 0 20px var(--i),
-                0 0 40px var(--i);
+        0 0 10px var(--i),
+        0 0 20px var(--i),
+        0 0 40px var(--i);
     transform: scale(0.9);
 }
 

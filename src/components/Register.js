@@ -127,7 +127,11 @@ const Register = () => {
         } else {
             setSubmitDisable(true);
             try {
-                const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+                const userCredential = await createUserWithEmailAndPassword(
+                    auth,
+                    email,
+                    password
+                );
                 // console.log(userCredential);
 
                 // Signed in
@@ -136,7 +140,10 @@ const Register = () => {
                 // console.log(user);
                 toast.success("Registered Successfully 😃");
 
-                const uploadimg = await updateProfile(user, { displayName: fname, photoURL: profilePic });
+                const uploadimg = await updateProfile(user, {
+                    displayName: fname,
+                    photoURL: profilePic,
+                });
                 // console.log(uploadimg);
                 // if(uploadimg){}
                 // else toast.error("Error in uploading Image! 😢");
@@ -148,10 +155,9 @@ const Register = () => {
                 const errorCode = error.code;
                 const errorMessage = error.message;
                 // console.log(errorCode + " " + errorMessage);
-                if(errorCode === "auth/email-already-in-use")
+                if (errorCode === "auth/email-already-in-use")
                     toast.warn("Email is already register!");
-                else
-                    toast.error("Error in registering 😢");
+                else toast.error("Error in registering 😢");
                 // ..
             }
         }
@@ -259,13 +265,19 @@ const Register = () => {
                             disabled={submitDisable}
                             className="btn"
                             onClick={addUserdata}
-                            style={{"--i": "#20c997"}}
+                            style={{ "--i": "#20c997" }}
                         >
                             {buttonCon}
                         </button>
                         <p>
                             Already have an account?
-                            <NavLink to="/" className="pbtn marbtn" style={{"--i": "#0dcaf0"}}>Log In</NavLink>
+                            <NavLink
+                                to="/"
+                                className="pbtn marbtn"
+                                style={{ "--i": "#0dcaf0" }}
+                            >
+                                Log In
+                            </NavLink>
                         </p>
                     </form>
                 </div>

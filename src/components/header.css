@@ -30,18 +30,18 @@ header nav span {
     transform: scale(0.8);
     background-color: #f00;
     box-shadow: 0 0 5px #f00,
-                0 0 10px #f00,
-                0 0 20px #f00,
-                0 0 40px #f00;
+        0 0 10px #f00,
+        0 0 20px #f00,
+        0 0 40px #f00;
 }
 
 header nav span.active {
     border: 1px solid #0f0;
     background: #0f0;
     box-shadow: 0 0 5px #0f0,
-                0 0 10px #0f0,
-                0 0 20px #0f0,
-                0 0 40px #0f0;
+        0 0 10px #0f0,
+        0 0 20px #0f0,
+        0 0 40px #0f0;
 }
 
 header nav .avtar {
