@@ -50,6 +50,8 @@ const ResetPass = ({location}) => {
                         toast.warn("Link is Expire!");
                     else if(errorCode === "auth/user-not-found")
                         toast.warn("user not found");
+                    else if(errorCode === "auth/invalid-action-code")
+                        toast.warn("Link is already used! (generate new)");
                     else
                         toast.error("Something went wrong!");
             }
