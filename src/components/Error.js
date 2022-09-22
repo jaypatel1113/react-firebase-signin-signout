@@ -35,7 +35,7 @@ const Error = () => {
                             color: "#fff",
                             textDecoration: "none",
                             fontSize: "1.8rem",
-                            "--i": "#ff6363"
+                            "--i": "#ff6363",
                         }}
                     >
                         Back To Home Page

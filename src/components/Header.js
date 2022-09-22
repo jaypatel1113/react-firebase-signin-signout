@@ -7,10 +7,10 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 
 import Particles from "./Particles";
-
-import "./header.css";
 import { AuthContext } from "./ContextProvider/AuthContext";
 import { auth } from "../firebase";
+
+import "./header.css";
 
 const Header = () => {
     const { currentUser, dispatch } = useContext(AuthContext);
@@ -50,15 +50,11 @@ const Header = () => {
             auth.onAuthStateChanged((user) => {
                 if (user) {
                     // toast.success("Logged in Successful 😃");
-                    setData({
-                        name: user.displayName,
-                        email: user.email,
-                        imgsrc: user.photoURL,
-                    });
+                    setData({ name: user.displayName, email: user.email, imgsrc: user.photoURL });
                 } else {
                     setData("");
                 }
-                console.log(user);
+                // console.log(user);
             });
         }, 1000);
     }, [currentUser]);
@@ -79,20 +75,30 @@ const Header = () => {
                     <div className="avtar">
                         {currentUser ? (
                             <Avatar
-                                style={{
-                                    // background: "salmon",
-                                    // background: "#333",
-                                    // fontWeight: "bold",
-                                    // textTransform: "capitalize",
-                                    // zIndex: 1000,
-                                    // color: "#fff",
-                                    // padding: "0.5rem",
-                                    // fontSize: "1.7rem",
-                                }}
+                                style={
+                                    {
+                                        // background: "salmon",
+                                        // background: "#333",
+                                        // fontWeight: "bold",
+                                        // textTransform: "capitalize",
+                                        // zIndex: 1000,
+                                        // color: "#fff",
+                                        // padding: "0.5rem",
+                                        // fontSize: "1.7rem",
+                                    }
+                                }
                                 onClick={handleClick}
                             >
                                 {/* {currentUser.displayName[0].toUpperCase()} */}
-                                <img src={data.imgsrc} alt="errror" style={{height: "100%", width: "100%", objectFit: "cover"}} />
+                                <img
+                                    src={data.imgsrc}
+                                    alt="errror"
+                                    style={{
+                                        height: "100%",
+                                        width: "100%",
+                                        objectFit: "cover",
+                                    }}
+                                />
                             </Avatar>
                         ) : (
                             <Avatar
@@ -112,9 +118,7 @@ const Header = () => {
                         anchorEl={anchorEl}
                         open={open}
                         onClose={handleClose}
-                        MenuListProps={{
-                            "aria-labelledby": "basic-button",
-                        }}
+                        MenuListProps={{ "aria-labelledby": "basic-button" }}
                     >
                         {currentUser ? (
                             <>

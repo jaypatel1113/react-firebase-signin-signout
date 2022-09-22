@@ -7,6 +7,7 @@ import { collection, addDoc } from "firebase/firestore";
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
 import ArrowBackIosNewOutlinedIcon from "@mui/icons-material/ArrowBackIosNewOutlined";
+
 import { db } from "../firebase";
 import { AuthContext } from "./ContextProvider/AuthContext";
 
@@ -42,17 +43,21 @@ const AddUser = () => {
             toast.warn("Enter the Mobile Number");
         } else {
             setLoading(true);
-
-            console.log("here");
             try {
-                await addDoc(collection(db, currentUser.uid), {
+                const adddoc = await addDoc(collection(db, currentUser.uid), {
                     ...inpval,
                     timeStamp: serverTimestamp(),
                 });
-                history("/users");
-                toast.success("Added Successfully 😁");
+                // console.log(adddoc);
+                if(adddoc) {
+                    history("/users");
+                    toast.success("Added Successfully 😁");
+                } else {
+                    toast.error("Error in adding new user! 😢");  
+                }
             } catch (error) {
-                console.log(error);
+                // console.log(error);
+                toast.error("Something went wrong! 😢");  
             }
         }
     };

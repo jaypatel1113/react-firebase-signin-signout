@@ -9,10 +9,11 @@ import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
 
-import "../index2.css";
-import "../App2.css";
 import { db } from "../firebase";
 import { AuthContext } from "./ContextProvider/AuthContext";
+
+import "../index2.css";
+import "../App2.css";
 
 const Users = () => {
     const { currentUser } = useContext(AuthContext);
@@ -23,36 +24,50 @@ const Users = () => {
     const getdata = async () => {
         setLoading(true);
 
-        let finaldata = [];
-        const querySnapshot = await getDocs(collection(db, currentUser.uid));
+        try {
+            let finaldata = [];
+            const querySnapshot = await getDocs(collection(db, currentUser.uid));
             querySnapshot.forEach((doc) => {
-            // doc.data() is never undefined for query doc snapshots
-            // console.log(doc.id, " => ", doc.data());
+                // doc.data() is never undefined for query doc snapshots
+                // console.log(doc.id, " => ", doc.data());
 
-            finaldata.push({id: doc.id, erno: doc.data().erno, mobile: doc.data().mobile, name: doc.data().name})
-        });
-        // console.log(finaldata);
-        setUserdata(finaldata);
-        // console.log(getuserdata);
+                finaldata.push({
+                    id: doc.id,
+                    erno: doc.data().erno,
+                    mobile: doc.data().mobile,
+                    name: doc.data().name,
+                });
+            });
+            // console.log(finaldata);
+            setUserdata(finaldata);
+            // console.log(getuserdata);
+        } catch (error) {
+            // console.log(error);
+            toast.error("Something went wrong! 😢");
+        }
         setLoading(false);
-
     };
 
     useEffect(() => {
         setLoading(true);
         getdata();
     }, []);
-    
+
     const deleteuser = async (id) => {
-        
         setLoading(true);
         // deleting data
-        await deleteDoc(doc(db, currentUser.uid, id)).then(()=> {
-            toast.success("Deleted Successfully 😁");
-        }).catch((err)=> {
-            console.log(err);
+        try {
+            const res = await deleteDoc(doc(db, currentUser.uid, id))
+            // console.log(res);
+            if(res === undefined) {
+                toast.success("Deleted Successfully 😁");
+            } else {  
+                toast.error("Something went wrong! 😢");
+            }
+        } catch (err) {
+            // console.log(err);
             toast.error("Something went wrong! 😢");
-        });
+        }
         setLoading(false);
         getdata();
     };
@@ -61,7 +76,10 @@ const Users = () => {
         <>
             {!loading ? (
                 getuserdata.length === 0 ? (
-                    <div className="container container1" style={{position: "relative"}}>
+                    <div
+                        className="container container1"
+                        style={{ position: "relative" }}
+                    >
                         <NavLink to="/adduser" style={{ zIndex: 1000 }}>
                             <button
                                 className="specbtn addone"
@@ -107,9 +125,7 @@ const Users = () => {
                                                         >
                                                             <button
                                                                 className="btn btn-success"
-                                                                style={{
-                                                                    "--i": "#20c997",
-                                                                }}
+                                                                style={{"--i": "#20c997"}}
                                                             >
                                                                 <RemoveRedEyeIcon />
                                                             </button>
@@ -119,23 +135,15 @@ const Users = () => {
                                                         >
                                                             <button
                                                                 className="btn btn-primary"
-                                                                style={{
-                                                                    "--i": "#0dcaf0",
-                                                                }}
+                                                                style={{"--i": "#0dcaf0"}}
                                                             >
                                                                 <CreateIcon />
                                                             </button>
                                                         </NavLink>
                                                         <button
                                                             className="del btn btn-danger"
-                                                            onClick={() =>
-                                                                deleteuser(
-                                                                    element.id
-                                                                )
-                                                            }
-                                                            style={{
-                                                                "--i": "#dc3545",
-                                                            }}
+                                                            onClick={() => deleteuser(element.id)}
+                                                            style={{"--i": "#dc3545"}}
                                                         >
                                                             <DeleteOutlineIcon />
                                                         </button>

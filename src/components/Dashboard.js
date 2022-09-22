@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
+
 import { auth } from "../firebase";
 
 const Dashboard = () => {
@@ -23,7 +24,7 @@ const Dashboard = () => {
                 } else {
                     setData("");
                 }
-                console.log(user);
+                // console.log(user);
             });
         }, 1000);
     }, []);

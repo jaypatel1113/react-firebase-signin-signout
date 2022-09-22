@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
 import ArrowBackIosNewOutlinedIcon from "@mui/icons-material/ArrowBackIosNewOutlined";
+
 import { db } from "../firebase";
 import { AuthContext } from "./ContextProvider/AuthContext";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
@@ -39,13 +40,23 @@ const EditUser = () => {
     const getdata = async () => {
         setLoading(true);
 
-        let dataref = doc(db, currentUser.uid, id);
-        setOldData(dataref);
-        
-        const docSnap = await getDoc(dataref);
-        console.log(docSnap.data());
-
-        setINP({id, erno: docSnap.data().erno, mobile: docSnap.data().mobile, name: docSnap.data().name})
+        try {
+            let dataref = doc(db, currentUser.uid, id);
+            setOldData(dataref);
+    
+            const docSnap = await getDoc(dataref);
+            // console.log(docSnap.data());
+    
+            setINP({
+                id,
+                erno: docSnap.data().erno,
+                mobile: docSnap.data().mobile,
+                name: docSnap.data().name,
+            });
+        } catch (error) {
+            // console.log(error);
+            toast.error("Something went wrong! 😢");   
+        }
 
         setLoading(false);
     };
@@ -66,28 +77,27 @@ const EditUser = () => {
         } else if (mobile === "") {
             toast.warn("Enter the Mobile Number");
         } else {
-            console.log(inpval);
+            // console.log(inpval);
             setLoading(true);
-
-            await updateDoc(oldData, {
-                erno: inpval.erno,
-                mobile: inpval.mobile,
-                name: inpval.name,
-            })
-                .then(() => {
+            try {
+                const upduser = await updateDoc(oldData, { 
+                                                    erno: inpval.erno,
+                                                    mobile: inpval.mobile,
+                                                    name: inpval.name,
+                                                })
+                // console.log(upduser);
+                if(upduser === undefined) {
                     setLoading(false);
                     toast.success("Updated Successfully 😁");
                     history(-1);
-                })
-                .catch((err) => {
-                    console.log(err);
+                } else {
+                    // console.log(err);
                     toast.error("Something went wrong! 😢");
-                });
-
-            // if (response) {
-            //     // console.log(response);
-            // } else {
-            // }
+                }      
+            } catch (error) {
+                // console.log(error);
+                toast.error("Something went wrong! 😢");
+            }
         }
     };
 

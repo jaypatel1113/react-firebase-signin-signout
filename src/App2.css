@@ -1,4 +1,5 @@
-.mainmain, .main {
+.mainmain,
+.main {
     min-height: 100vh;
     background-color: black;
     color: white;
@@ -96,9 +97,9 @@ form .specbtn:hover,
     background: rgba(255, 255, 255, 0.3);
     background: var(--i) !important;
     box-shadow: 0 0 5px var(--i),
-        0 0 10px var(--i),
-        0 0 20px var(--i),
-        0 0 40px var(--i);
+                0 0 10px var(--i),
+                0 0 20px var(--i),
+                0 0 40px var(--i);
     transform: scale(0.9);
     color: #000 !important;
     font-weight: 700;

@@ -39,22 +39,25 @@ ul li {
     font-size: 14px !important;
 }
 
-.btn, .pbtn {
+.btn,
+.pbtn {
     background: rgba(255, 255, 255, 0.2) !important;
     padding: 1rem !important;
     margin: 1.4rem 0 !important;
 }
+
 .pbtn {
     margin-left: 2rem !important;
     padding: 1rem 1.5rem !important;
 }
 
-.btn:hover, .pbtn:hover {
+.btn:hover,
+.pbtn:hover {
     background: var(--i) !important;
     box-shadow: 0 0 5px var(--i),
-        0 0 10px var(--i),
-        0 0 20px var(--i),
-        0 0 40px var(--i);
+                0 0 10px var(--i),
+                0 0 20px var(--i),
+                0 0 40px var(--i);
     transform: scale(0.9);
     color: #000 !important;
     font-weight: bolder;
@@ -65,7 +68,7 @@ ul li {
     pointer-events: all !important;
 }
 
-.btn + p {
+.btn+p {
     margin-top: 4rem !important;
 }
 
@@ -128,7 +131,7 @@ ul li {
     header nav h1 {
         font-size: 3rem !important;
     }
-    
+
     .form_input .showpass {
         top: 0px !important;
     }
@@ -146,7 +149,8 @@ ul li {
 
     form .btn {
         font-size: 2rem !important;
-    }   
+    }
+
     .form_input .showpass {
         top: 2px !important;
     }

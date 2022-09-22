@@ -5,6 +5,7 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { useContext } from "react";
 
 import "./mix.css";
+
 import { auth } from "../firebase";
 import { AuthContext } from "./ContextProvider/AuthContext";
 
@@ -47,23 +48,29 @@ const Login = () => {
             toast.error("Password: min 6 char require!");
         } else {
             setSubmitDisable(true);
-            signInWithEmailAndPassword(auth, email, password)
-                .then((userCredential) => {
-                    // Signed in
-                    const user = userCredential.user;
-                    setSubmitDisable(false);
-                    console.log(user);
-                    dispatch({ type: "LOGIN", payload: user });
-                    toast.success("Login Successfull 😉");
-                    history("/dash");
-                })
-                .catch((error) => {
-                    setSubmitDisable(false);
+
+            try {
+                const userCredential = await signInWithEmailAndPassword(auth, email, password);
+                const user = userCredential.user;
+                setSubmitDisable(false);
+                // console.log(user);
+                dispatch({ type: "LOGIN", payload: user });
+                toast.success("Login Successfull 😉");
+                history("/dash");
+            } catch (error) {
+                // console.log(error);
+                setSubmitDisable(false);
+                    // console.log(error);
                     const errorCode = error.code;
                     const errorMessage = error.message;
-                    console.log(errorCode + "  " + errorMessage);
-                    toast.error("Invalid Credentials 😥");
-                });
+                    // console.log(errorCode + "  " + errorMessage);
+                    if(errorCode === "auth/user-not-found")
+                        toast.warn("Email is not Register!");
+                    else if(errorCode === "auth/wrong-password")
+                        toast.warn("Incorrect Password!");
+                    else
+                        toast.error("Something went wrong!");
+            }
         }
     };
 

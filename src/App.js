@@ -2,8 +2,6 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import { useContext } from "react";
 import { ToastContainer } from "react-toastify";
 
-import "react-toastify/dist/ReactToastify.css";
-
 import Header from "./components/Header";
 import Login from "./components/Login";
 import Register from "./components/Register";
@@ -15,6 +13,7 @@ import EditUser from "./components/EditUser";
 import ViewUser from "./components/ViewUser";
 import { AuthContext } from "./components/ContextProvider/AuthContext";
 
+import "react-toastify/dist/ReactToastify.css";
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import "../node_modules/react-toastify/dist/ReactToastify.css";
 import "../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js";
@@ -97,7 +96,7 @@ function App() {
                     <Route path="*" element={<Error />} />
                 </Routes>
                 <ToastContainer
-                    theme="colored"
+                    theme="dark"
                     position="bottom-right"
                     style={{ fontSize: "14px" }}
                 />

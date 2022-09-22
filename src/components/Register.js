@@ -38,7 +38,7 @@ const Register = () => {
     };
 
     const btnact = (progress) => {
-        console.log(progress);
+        // console.log(progress);
         setButtonCon("Uploaded: " + progress.toFixed(2) + "%");
         setSubmitDisable(true);
     };
@@ -51,7 +51,7 @@ const Register = () => {
     };
 
     const updImage = (e) => {
-        console.log(e.target.files[0]);
+        // console.log(e.target.files[0]);
         setInpval({ ...inpval, profilePic: e.target.files[0] });
 
         // const uniqueName = new Date().getTime() + "_" + e.target.files[0].name;
@@ -71,7 +71,7 @@ const Register = () => {
                 // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
                 const progress =
                     (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                console.log("Upload is " + progress + "% done");
+                // console.log("Upload is " + progress + "% done");
                 if (progress < 100) btnact(progress);
                 else resetbtn();
 
@@ -88,18 +88,19 @@ const Register = () => {
             },
             (error) => {
                 // Handle unsuccessful uploads
-                console.log(error);
+                // console.log(error);
+                toast.error("Something went wrong! 😢");
             },
             () => {
                 // Handle successful uploads on complete
                 // For instance, get the download URL: https://firebasestorage.googleapis.com/...
                 getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-                    console.log("File available at", downloadURL);
+                    // console.log("File available at: ", downloadURL);
                     setInpval({ ...inpval, profilePic: downloadURL });
                 });
             }
         );
-        console.log(inpval);
+        // console.log(inpval);
     };
 
     const addUserdata = async (e) => {
@@ -125,32 +126,34 @@ const Register = () => {
             toast.error("Confirm password is not matching!");
         } else {
             setSubmitDisable(true);
-            createUserWithEmailAndPassword(auth, email, password)
-                .then((userCredential) => {
-                    // Signed in
-                    const user = userCredential.user;
-                    setSubmitDisable(false);
-                    console.log(user);
-                    toast.success("Registered Successfully 😃");
+            try {
+                const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+                // console.log(userCredential);
 
-                    updateProfile(user, {
-                        displayName: fname,
-                        photoURL: profilePic,
-                    })
-                        .then(() => console.log("updated"))
-                        .catch((err) => console.log(err));
+                // Signed in
+                const user = userCredential.user;
+                setSubmitDisable(false);
+                // console.log(user);
+                toast.success("Registered Successfully 😃");
 
-                    history("/");
-                    // ...
-                })
-                .catch((error) => {
-                    setSubmitDisable(false);
-                    const errorCode = error.code;
-                    const errorMessage = error.message;
-                    console.log(errorCode + " " + errorMessage);
+                const uploadimg = await updateProfile(user, { displayName: fname, photoURL: profilePic });
+                // console.log(uploadimg);
+                // if(uploadimg){}
+                // else toast.error("Error in uploading Image! 😢");
+
+                history("/");
+                // ...
+            } catch (error) {
+                setSubmitDisable(false);
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                // console.log(errorCode + " " + errorMessage);
+                if(errorCode === "auth/email-already-in-use")
+                    toast.warn("Email is already register!");
+                else
                     toast.error("Error in registering 😢");
-                    // ..
-                });
+                // ..
+            }
         }
     };
 
@@ -163,7 +166,7 @@ const Register = () => {
                         <p style={{ textAlign: "center" }}>
                             We are glad that you will be using Project Cloud to
                             manage <br />
-                            your tasks! We hope that you will get like it.
+                            your users! We hope that you will get like it.
                         </p>
                     </div>
 
