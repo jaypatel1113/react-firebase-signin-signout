@@ -47,8 +47,11 @@ ul li {
 }
 
 .pbtn {
-    margin-left: 2rem !important;
     padding: 1rem 1.5rem !important;
+}
+
+.marbtn {
+    margin-left: 2rem !important;
 }
 
 .btn:hover,

@@ -265,7 +265,7 @@ const Register = () => {
                         </button>
                         <p>
                             Already have an account?
-                            <NavLink to="/" className="pbtn" style={{"--i": "#0dcaf0"}}>Log In</NavLink>
+                            <NavLink to="/" className="pbtn marbtn" style={{"--i": "#0dcaf0"}}>Log In</NavLink>
                         </p>
                     </form>
                 </div>

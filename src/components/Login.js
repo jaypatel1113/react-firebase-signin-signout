@@ -122,9 +122,12 @@ const Login = () => {
                         <button disabled={submitDisable} className="btn" onClick={loginuser} style={{"--i": "#20c997"}}>
                             Login
                         </button>
-                        <p>
-                            Don't have an Account?
+                        <p style={{display: "flex", justifyContent: "space-between"}}>
                             <NavLink to="/register" className="pbtn" style={{"--i": "#0dcaf0"}}>Sign Up</NavLink>
+                            <NavLink to="/forget-password" className="pbtn" style={{"--i": "#0dcaf0"}}>Forget Password?</NavLink>
+                        </p>
+                        <p>
+                            
                         </p>
                     </form>
                 </div>

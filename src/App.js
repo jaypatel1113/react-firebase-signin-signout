@@ -11,6 +11,8 @@ import Users from "./components/Users";
 import AddUser from "./components/AddUser";
 import EditUser from "./components/EditUser";
 import ViewUser from "./components/ViewUser";
+import ForgetPass from "./components/ForgetPass";
+import ResetPass from "./components/ResetPass";
 import { AuthContext } from "./components/ContextProvider/AuthContext";
 
 import "react-toastify/dist/ReactToastify.css";
@@ -58,6 +60,22 @@ function App() {
                             <RequireAuth>
                                 <Dashboard />
                             </RequireAuth>
+                        }
+                    />
+                    <Route
+                        path="/forget-password"
+                        element={
+                            <RequireAuthtoDash>
+                                <ForgetPass />
+                            </RequireAuthtoDash>
+                        }
+                    />
+                    <Route
+                        path="/reset-password"
+                        element={
+                            <RequireAuthtoDash>
+                                <ResetPass />
+                            </RequireAuthtoDash>
                         }
                     />
                     <Route
